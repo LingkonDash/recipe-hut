@@ -45,7 +45,7 @@ export default function LoginPage() {
       setError(signInError.message || 'Failed to sign in. Please check your credentials.');
       setLoading(false);
     } else {
-      router.push('/');
+      window.location.href = '/';
     }
   };
 
