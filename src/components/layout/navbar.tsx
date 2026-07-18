@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const { data: session, isPending } = useSession();
-  
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
 
