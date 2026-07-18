@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Recipe } from "@/types/recipe";
 import { RecipeCard } from "@/components/ui/recipe-card";
+import { NutritionChart } from "@/components/ui/nutrition-chart";
+import { RecipeAnimations } from "@/components/recipe-animations";
 
 /* ─────────────────────────────────────────────
    Helpers
@@ -110,7 +112,7 @@ export default async function RecipeDetailPage({
       {/* ── HERO / HEADER ─────────────────────────────────── */}
       <section className="relative">
         {/* Image / Placeholder */}
-        <div className="relative w-full h-72 sm:h-96 md:h-[480px] overflow-hidden">
+        <div className="gsap-recipe-hero relative w-full h-72 sm:h-96 md:h-[480px] overflow-hidden">
           {recipe.imageUrl ? (
             <Image
               src={recipe.imageUrl}
@@ -173,7 +175,7 @@ export default async function RecipeDetailPage({
         </div>
 
         {/* Title card that overlaps the image */}
-        <div className="relative z-10 -mt-24 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div className="gsap-recipe-hero relative z-10 -mt-24 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-6 sm:p-8 border border-zinc-100 dark:border-zinc-800">
             {/* Title + description */}
             <div className="mb-6">
@@ -273,7 +275,7 @@ export default async function RecipeDetailPage({
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-20 mt-8 space-y-10">
 
         {/* ── OVERVIEW / DESCRIPTION ─────────────────────── */}
-        <section className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
+        <section className="gsap-recipe-section bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-[var(--foreground)] mb-4 flex items-center gap-3">
             <span className="w-1 h-7 rounded-full bg-[var(--primary)] inline-block" />
             Overview
@@ -286,7 +288,7 @@ export default async function RecipeDetailPage({
         {/* ── INGREDIENTS + STEPS ──────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Ingredients */}
-          <section className="lg:col-span-1 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8 h-fit">
+          <section className="gsap-recipe-section lg:col-span-1 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8 h-fit">
             <h2 className="text-xl font-bold text-[var(--foreground)] mb-5 flex items-center gap-3">
               <span className="w-1 h-6 rounded-full bg-[var(--secondary)] inline-block" />
               Ingredients
@@ -307,7 +309,7 @@ export default async function RecipeDetailPage({
           </section>
 
           {/* Instructions */}
-          <section className="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
+          <section className="gsap-recipe-section lg:col-span-2 bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
             <h2 className="text-xl font-bold text-[var(--foreground)] mb-5 flex items-center gap-3">
               <span className="w-1 h-6 rounded-full bg-[var(--primary)] inline-block" />
               Instructions
@@ -328,7 +330,7 @@ export default async function RecipeDetailPage({
         </div>
 
         {/* ── NUTRITION FACTS ───────────────────────────────── */}
-        <section className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
+        <section className="gsap-recipe-section bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-[var(--foreground)] mb-6 flex items-center gap-3">
             <span className="w-1 h-7 rounded-full bg-[var(--accent)] inline-block" />
             Nutrition Facts
@@ -336,51 +338,12 @@ export default async function RecipeDetailPage({
               (per serving)
             </span>
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {/* Calories */}
-            <div className="rounded-xl bg-gradient-to-br from-[var(--primary)]/10 to-[var(--primary)]/5 border border-[var(--primary)]/20 p-5 text-center">
-              <div className="text-3xl font-black text-[var(--primary)] mb-1">
-                {recipe.calories}
-              </div>
-              <div className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
-                Calories
-              </div>
-              <div className="text-[10px] text-zinc-400 mt-0.5">kcal</div>
-            </div>
-            {/* Protein */}
-            <div className="rounded-xl bg-gradient-to-br from-[var(--secondary)]/10 to-[var(--secondary)]/5 border border-[var(--secondary)]/20 p-5 text-center">
-              <div className="text-3xl font-black text-[var(--secondary)] mb-1">
-                {recipe.protein}
-                <span className="text-lg font-bold">g</span>
-              </div>
-              <div className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
-                Protein
-              </div>
-              <div className="text-[10px] text-zinc-400 mt-0.5">grams</div>
-            </div>
-            {/* Carbs */}
-            <div className="rounded-xl bg-gradient-to-br from-[var(--accent)]/15 to-[var(--accent)]/5 border border-[var(--accent)]/25 p-5 text-center">
-              <div className="text-3xl font-black text-[var(--accent)] mb-1">
-                {recipe.carbs}
-                <span className="text-lg font-bold">g</span>
-              </div>
-              <div className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
-                Carbs
-              </div>
-              <div className="text-[10px] text-zinc-400 mt-0.5">grams</div>
-            </div>
-            {/* Fat */}
-            <div className="rounded-xl bg-gradient-to-br from-blue-500/10 to-blue-500/5 border border-blue-500/20 p-5 text-center">
-              <div className="text-3xl font-black text-blue-500 mb-1">
-                {recipe.fat}
-                <span className="text-lg font-bold">g</span>
-              </div>
-              <div className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">
-                Fat
-              </div>
-              <div className="text-[10px] text-zinc-400 mt-0.5">grams</div>
-            </div>
-          </div>
+          <NutritionChart 
+            calories={recipe.calories} 
+            protein={recipe.protein} 
+            carbs={recipe.carbs} 
+            fat={recipe.fat} 
+          />
         </section>
 
         {/* ── REVIEWS / RATINGS ────────────────────────────── */}
@@ -394,7 +357,7 @@ export default async function RecipeDetailPage({
             4. Convert this section to a Client Component with form state management
             5. Update the Recipe.rating field via aggregation on new review writes
         */}
-        <section className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
+        <section className="gsap-recipe-section bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8">
           <h2 className="text-2xl font-bold text-[var(--foreground)] mb-6 flex items-center gap-3">
             <span className="w-1 h-7 rounded-full bg-[var(--primary)] inline-block" />
             Reviews &amp; Ratings
@@ -513,19 +476,23 @@ export default async function RecipeDetailPage({
 
         {/* ── RELATED RECIPES ──────────────────────────────── */}
         {relatedRecipes.length > 0 && (
-          <section>
+          <section className="gsap-recipe-section">
             <h2 className="text-2xl font-bold text-[var(--foreground)] mb-6 flex items-center gap-3">
               <span className="w-1 h-7 rounded-full bg-[var(--secondary)] inline-block" />
               More {recipe.category} Recipes
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedRecipes.map((related) => (
-                <RecipeCard key={related._id} recipe={related} />
+                <div key={related._id} className="gsap-recipe-card h-full">
+                  <RecipeCard recipe={related} />
+                </div>
               ))}
             </div>
           </section>
         )}
       </div>
+      
+      <RecipeAnimations />
     </div>
   );
 }

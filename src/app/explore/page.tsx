@@ -5,6 +5,8 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { RecipeCard } from "@/components/ui/recipe-card";
 import { RecipeCardSkeleton } from "@/components/ui/recipe-card-skeleton";
 import { Recipe } from "@/types/recipe";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function ExploreContent() {
   const router = useRouter();
@@ -33,6 +35,27 @@ function ExploreContent() {
   const [cuisines, setCuisines] = useState<string[]>([]);
   
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Controls animation (only on mount)
+    gsap.fromTo(
+      ".gsap-explore-control",
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out" }
+    );
+  }, { scope: containerRef }); // No dependencies, runs once
+
+  useGSAP(() => {
+    // Recipe cards animation (re-runs when recipes change)
+    if (!isLoading && recipes.length > 0) {
+      gsap.fromTo(
+        ".gsap-explore-card",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: "power2.out" }
+      );
+    }
+  }, { dependencies: [isLoading, recipes], scope: containerRef });
 
   // Fetch filters once
   useEffect(() => {
@@ -137,7 +160,7 @@ function ExploreContent() {
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   return (
-    <div className="container py-12 md:py-16 mx-auto px-4 min-h-[80vh]">
+    <div ref={containerRef} className="container py-12 md:py-16 mx-auto px-4 min-h-[80vh]">
       <div className="mb-10 text-center">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
           Explore Recipes
@@ -149,7 +172,7 @@ function ExploreContent() {
 
       <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm mb-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 gsap-explore-control">
             <label htmlFor="search" className="block text-sm font-medium text-foreground mb-1">Search</label>
             <div className="relative">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -164,7 +187,7 @@ function ExploreContent() {
             </div>
           </div>
           
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 gsap-explore-control">
             <label htmlFor="category" className="block text-sm font-medium text-foreground mb-1">Category</label>
             <div className="relative">
               <select
@@ -184,7 +207,7 @@ function ExploreContent() {
             </div>
           </div>
 
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 gsap-explore-control">
             <label htmlFor="cuisine" className="block text-sm font-medium text-foreground mb-1">Cuisine</label>
             <div className="relative">
               <select
@@ -204,7 +227,7 @@ function ExploreContent() {
             </div>
           </div>
 
-          <div className="md:col-span-1">
+          <div className="md:col-span-1 gsap-explore-control">
             <label htmlFor="sort" className="block text-sm font-medium text-foreground mb-1">Sort By</label>
             <div className="relative">
               <select
@@ -235,7 +258,9 @@ function ExploreContent() {
         ) : recipes.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {recipes.map(recipe => (
-              <RecipeCard key={recipe._id} recipe={recipe} />
+              <div key={recipe._id} className="gsap-explore-card h-full">
+                <RecipeCard recipe={recipe} />
+              </div>
             ))}
           </div>
         ) : (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { RecipeCard } from "@/components/ui/recipe-card";
 import { Recipe } from "@/types/recipe";
 import { headers } from "next/headers";
+import { HomeAnimations } from "@/components/home-animations";
 
 async function getBaseUrl() {
   const headersList = await headers();
@@ -66,14 +67,14 @@ export default async function Home() {
         <div className="absolute inset-0 bg-black/40 z-0"></div>
         
         <div className="relative z-10 container max-w-4xl mx-auto px-4 flex flex-col items-center text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-lg tracking-tight">
+          <h1 className="hero-animate text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-lg tracking-tight">
             Discover Your Next <br /> <span className="text-accent drop-shadow-md">Culinary Masterpiece</span>
           </h1>
-          <p className="text-lg md:text-xl text-zinc-100 mb-10 max-w-2xl drop-shadow-md font-medium">
+          <p className="hero-animate text-lg md:text-xl text-zinc-100 mb-10 max-w-2xl drop-shadow-md font-medium">
             Join a thriving community of food lovers. Explore thousands of curated recipes, ask our AI assistant for ideas, and elevate your home cooking experience.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xl">
+          <div className="hero-animate flex flex-col sm:flex-row gap-4 w-full max-w-xl">
             <form action="/explore" className="flex-grow flex relative shadow-2xl rounded-full">
               <input 
                 type="text" 
@@ -89,7 +90,7 @@ export default async function Home() {
             </form>
           </div>
           
-          <Link href="/explore" className="mt-8 text-white font-medium hover:text-accent transition-colors flex items-center gap-2">
+          <Link href="/explore" className="hero-animate mt-8 text-white font-medium hover:text-accent transition-colors flex items-center gap-2">
             Or browse all recipes
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </Link>
@@ -102,7 +103,7 @@ export default async function Home() {
       </section>
 
       {/* 2. Why Recipe Hut */}
-      <section className="w-full py-24 bg-background">
+      <section className="gsap-section w-full py-24 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Why Choose Recipe Hut?</h2>
@@ -110,7 +111,7 @@ export default async function Home() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:-translate-y-1 transition-transform">
+            <div className="gsap-stagger-card bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:-translate-y-1 transition-transform">
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 1.1-.9 2-2 2s-2-.9-2-2a2 2 0 0 1 2-2Z"/><path d="M12 6v14"/><path d="M5 10a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2"/><path d="M5 10v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
               </div>
@@ -118,7 +119,7 @@ export default async function Home() {
               <p className="text-zinc-600 dark:text-zinc-400">Not sure what to cook? Tell our AI what is in your fridge, and we will generate the perfect recipe for you instantly.</p>
             </div>
             
-            <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:-translate-y-1 transition-transform">
+            <div className="gsap-stagger-card bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:-translate-y-1 transition-transform">
               <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
               </div>
@@ -126,7 +127,7 @@ export default async function Home() {
               <p className="text-zinc-600 dark:text-zinc-400">Track your macros with precision. Every recipe includes comprehensive nutritional charts and breakdown.</p>
             </div>
             
-            <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:-translate-y-1 transition-transform">
+            <div className="gsap-stagger-card bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 hover:-translate-y-1 transition-transform">
               <div className="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 Z"/></svg>
               </div>
@@ -138,7 +139,7 @@ export default async function Home() {
       </section>
 
       {/* 3. Browse by Category */}
-      <section className="w-full py-24 bg-zinc-50 dark:bg-zinc-950 border-y border-zinc-200 dark:border-zinc-900">
+      <section className="gsap-section w-full py-24 bg-zinc-50 dark:bg-zinc-950 border-y border-zinc-200 dark:border-zinc-900">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-end mb-12 max-w-6xl mx-auto">
             <div>
@@ -161,7 +162,7 @@ export default async function Home() {
               <Link 
                 key={cat.name} 
                 href={`/explore?category=${cat.name}`}
-                className={`flex flex-col items-center justify-center p-6 rounded-2xl ${cat.bg} hover:shadow-md transition-all hover:-translate-y-1 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800`}
+                className={`gsap-stagger-card flex flex-col items-center justify-center p-6 rounded-2xl ${cat.bg} hover:shadow-md transition-all hover:-translate-y-1 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800`}
               >
                 <span className="text-4xl mb-3">{cat.icon}</span>
                 <span className="font-bold text-foreground">{cat.name}</span>
@@ -172,7 +173,7 @@ export default async function Home() {
       </section>
 
       {/* 4. Featured Recipes */}
-      <section className="w-full py-24 bg-background">
+      <section className="gsap-section w-full py-24 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="flex justify-between items-end mb-12">
             <div>
@@ -187,7 +188,9 @@ export default async function Home() {
           {featuredRecipes.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {featuredRecipes.map((recipe: Recipe) => (
-                <RecipeCard key={recipe._id} recipe={recipe} />
+                <div key={recipe._id} className="gsap-stagger-card h-full">
+                  <RecipeCard recipe={recipe} />
+                </div>
               ))}
             </div>
           ) : (
@@ -201,7 +204,7 @@ export default async function Home() {
       </section>
 
       {/* 5. How It Works */}
-      <section className="w-full py-24 bg-zinc-900 text-white">
+      <section className="gsap-section w-full py-24 bg-zinc-900 text-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
@@ -235,7 +238,7 @@ export default async function Home() {
               </svg>
               },
             ].map((s, i) => (
-              <div key={i} className="relative z-10 flex flex-col items-center text-center group">
+              <div key={i} className="gsap-stagger-card relative z-10 flex flex-col items-center text-center group">
                 <div className="w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all border-4 border-zinc-900">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{s.icon}</svg>
                 </div>
@@ -249,23 +252,31 @@ export default async function Home() {
       </section>
 
       {/* 6. By The Numbers */}
-      <section className="w-full py-20 bg-primary text-white">
+      <section className="gsap-section w-full py-20 bg-primary text-white">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl md:text-5xl font-extrabold mb-2">{totalRecipes > 0 ? totalRecipes : '500+'}</div>
+              <div className="text-4xl md:text-5xl font-extrabold mb-2">
+                <span className="gsap-number" data-value={totalRecipes > 0 ? totalRecipes : 500}>0</span>{totalRecipes > 0 ? '' : '+'}
+              </div>
               <div className="text-primary-foreground/80 font-medium">Recipes Published</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-extrabold mb-2">25+</div>
+              <div className="text-4xl md:text-5xl font-extrabold mb-2">
+                <span className="gsap-number" data-value="25">0</span>+
+              </div>
               <div className="text-primary-foreground/80 font-medium">Cuisines</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-extrabold mb-2">12</div>
+              <div className="text-4xl md:text-5xl font-extrabold mb-2">
+                <span className="gsap-number" data-value="12">0</span>
+              </div>
               <div className="text-primary-foreground/80 font-medium">Dietary Categories</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-extrabold mb-2">10k+</div>
+              <div className="text-4xl md:text-5xl font-extrabold mb-2">
+                <span className="gsap-number" data-value="10">0</span>k+
+              </div>
               <div className="text-primary-foreground/80 font-medium">Happy Cooks</div>
             </div>
           </div>
@@ -273,7 +284,7 @@ export default async function Home() {
       </section>
 
       {/* 7. Newsletter */}
-      <section className="w-full py-24 bg-background">
+      <section className="gsap-section w-full py-24 bg-background">
         <div className="container mx-auto px-4 max-w-4xl text-center">
           <div className="bg-zinc-100 dark:bg-zinc-900 rounded-3xl p-8 md:p-16 border border-zinc-200 dark:border-zinc-800 shadow-sm">
             <h2 className="text-3xl font-bold mb-4 text-foreground">Never miss a recipe.</h2>
@@ -287,7 +298,7 @@ export default async function Home() {
       </section>
 
       {/* 8. FAQ */}
-      <section className="w-full py-24 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-900">
+      <section className="gsap-section w-full py-24 bg-zinc-50 dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-900">
         <div className="container mx-auto px-4 max-w-3xl">
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Frequently Asked Questions</h2>
           
@@ -314,7 +325,7 @@ export default async function Home() {
                 a: "Yes! Registered users can 'favorite' recipes and organize them into custom collections for easy access later."
               }
             ].map((faq, i) => (
-              <details key={i} className="group bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
+              <details key={i} className="gsap-stagger-card group bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
                 <summary className="flex justify-between items-center font-bold cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
                   {faq.q}
                   <span className="transition group-open:rotate-180">
@@ -329,6 +340,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      
+      <HomeAnimations />
     </main>
   );
 }

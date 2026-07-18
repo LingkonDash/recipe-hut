@@ -1,34 +1,32 @@
 @import "tailwindcss";
 
 @theme {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-border: var(--border);
 }
 
 @layer base {
   :root {
+    --background: #FAFAF8;
+    --surface: #F2F0EA;
+    --foreground: #221F1A;
+    --foreground-muted: #6B655C;
     --primary: #C1502E;
     --secondary: #5B6B4A;
     --accent: #E0A458;
-    --background: #FAFAF8;
-    --foreground: #1A1815;
-  }
-
-  .dark {
-    --primary: #D25C37;
-    --secondary: #6A7A57;
-    --accent: #EAA95F;
-    --background: #1A1815;
-    --foreground: #FAFAF8;
+    --border: #E4E0D8;
   }
 }
 
 @layer base {
   * {
-    border-color: var(--color-gray-200);
+    border-color: var(--border);
   }
   body {
     background-color: var(--background);
