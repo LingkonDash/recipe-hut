@@ -70,6 +70,14 @@ export function Navbar() {
               Explore
             </Link>
             <Link
+              href="/pantry"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/pantry") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
+            >
+              Pantry
+            </Link>
+            <Link
               href="/about"
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 isActive("/about") ? "text-primary font-semibold" : "text-foreground-muted"
@@ -266,6 +274,15 @@ export function Navbar() {
               }`}
             >
               Explore
+            </Link>
+            <Link
+              href="/pantry"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/pantry") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
+            >
+              Pantry
             </Link>
             <Link
               href="/about"
