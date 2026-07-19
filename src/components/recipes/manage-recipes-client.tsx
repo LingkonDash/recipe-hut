@@ -138,13 +138,19 @@ export function ManageRecipesClient() {
               <div className="flex items-center gap-2 mt-auto">
                 <Link
                   href={`/recipes/${recipe._id}`}
-                  className="flex-1 text-center py-2 px-3 text-primary border border-primary/30 hover:bg-primary/10 font-medium rounded-lg transition-colors text-sm"
+                  className="flex-1 text-center py-2 px-1.5 text-primary border border-primary/30 hover:bg-primary/10 font-medium rounded-lg transition-colors text-xs"
                 >
                   View
                 </Link>
+                <Link
+                  href={`/items/edit/${recipe._id}`}
+                  className="flex-1 text-center py-2 px-1.5 text-zinc-700 dark:text-zinc-300 border border-border hover:bg-background font-medium rounded-lg transition-colors text-xs"
+                >
+                  Edit
+                </Link>
                 <button
                   onClick={() => setRecipeToDelete(recipe)}
-                  className="flex-1 text-center py-2 px-3 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg transition-colors text-sm"
+                  className="flex-1 text-center py-2 px-1.5 bg-red-50 hover:bg-red-100 text-red-600 font-medium rounded-lg transition-colors text-xs"
                 >
                   Delete
                 </button>
@@ -205,6 +211,13 @@ export function ManageRecipesClient() {
                       aria-label="View"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </Link>
+                    <Link
+                      href={`/items/edit/${recipe._id}`}
+                      className="p-2 text-foreground-muted hover:text-primary transition-colors"
+                      aria-label="Edit"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
                     </Link>
                     <button
                       onClick={() => setRecipeToDelete(recipe)}

@@ -3,12 +3,16 @@
 import { useRouter } from 'next/navigation';
 import { RecipeForm } from '@/components/forms/recipe-form';
 
-export function AddRecipeForm() {
+interface EditRecipeFormWrapperProps {
+  recipe: any;
+}
+
+export function EditRecipeFormWrapper({ recipe }: EditRecipeFormWrapperProps) {
   const router = useRouter();
 
   const handleSubmit = async (payload: any) => {
-    const res = await fetch('/api/recipes', {
-      method: 'POST',
+    const res = await fetch(`/api/recipes/${recipe._id}`, {
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
@@ -22,13 +26,14 @@ export function AddRecipeForm() {
       throw new Error(data.error || 'Something went wrong. Please try again.');
     }
 
-    const created = await res.json();
-    router.push(`/recipes/${created._id}`);
+    const updated = await res.json();
+    router.push(`/recipes/${updated._id}`);
   };
 
   return (
     <RecipeForm
-      submitLabel="Publish Recipe"
+      initialData={recipe}
+      submitLabel="Update Recipe"
       onSubmit={handleSubmit}
     />
   );
