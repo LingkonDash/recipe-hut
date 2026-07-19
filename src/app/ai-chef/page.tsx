@@ -308,7 +308,7 @@ function ConversationTurnView({ turn }: { turn: ConversationTurn }) {
       {(turn.phase === "opening" || turn.phase === "cards" || turn.phase === "comparison" || turn.phase === "done") &&
         (turn.openingMessage || turn.error) && (
           <div className="flex flex-col items-start">
-            <div className="max-w-[85%] bg-surface border border-border rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm text-foreground leading-relaxed">
+            <div className="max-w-[85%] bg-surface border border-border rounded-2xl rounded-tl-sm px-4 py-2.5 text-sm text-foreground leading-relaxed min-h-[40px]">
               {turn.error ? (
                 <span className="text-foreground-muted">{turn.error}</span>
               ) : (
@@ -399,7 +399,7 @@ function ConversationTurnView({ turn }: { turn: ConversationTurn }) {
 // Main page
 // ---------------------------------------------------------------------------
 
-export default function PantryPage() {
+export default function AiChefPage() {
   const { data: session, isPending: sessionPending } = useSession();
   const isLoggedIn = !sessionPending && !!session?.user;
 
@@ -411,10 +411,10 @@ export default function PantryPage() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const turnIdRef = useRef(0);
 
-  // Scroll to bottom whenever turns update
+  // Scroll to bottom only when a new turn is added to the conversation
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [turns]);
+  }, [turns.length]);
 
   // ---------------------------------------------------------------------------
   // Animation driver: walks a turn through phases using setInterval/setTimeout
