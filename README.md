@@ -8,14 +8,8 @@
 
 ## 🔗 Live Demo
 
-- **Live URL:** _[paste your deployment link here]_
+- **Live URL:** [recipe-hut](https://recipe-hut.vercel.app/)
 - **Demo credentials:** Available via the "Try Demo Account" button on the login page (auto-fills credentials)
-
----
-
-## 📸 Preview
-
-_[Add screenshots or a short GIF/demo video here]_
 
 ---
 
@@ -195,6 +189,7 @@ MONGODB_DB=recipe-hut
 
 BETTER_AUTH_SECRET=      # generate with: openssl rand -base64 32
 BETTER_AUTH_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
