@@ -183,7 +183,7 @@ function Top3Card({
               Best Pick
             </div>
           )}
-          <RecipeCard recipe={recipeObj} />
+          <RecipeCard recipe={recipeObj} flat={true} />
         </div>
 
         {/* Extra pantry additions BELOW the standard card */}

@@ -21,7 +21,18 @@ export function Navbar() {
     window.location.href = "/";
   };
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === "/";
+    }
+    if (path === "/explore") {
+      return pathname === "/explore" || pathname.startsWith("/recipes/");
+    }
+    if (path === "/items/manage") {
+      return pathname === "/items/manage" || pathname.startsWith("/items/edit/");
+    }
+    return pathname === path;
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {

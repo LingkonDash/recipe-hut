@@ -4,14 +4,15 @@ import { Recipe } from "@/types/recipe";
 
 interface RecipeCardProps {
   recipe: Recipe;
+  flat?: boolean;
 }
 
-export function RecipeCard({ recipe }: RecipeCardProps) {
+export function RecipeCard({ recipe, flat = false }: RecipeCardProps) {
   // Use a placeholder if no image is available
   const imageUrl = recipe.imageUrl || "/placeholder-recipe.jpg";
 
   return (
-    <div className="group flex flex-col h-full bg-surface border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-primary/50 transition-all duration-300">
+    <div className={flat ? "group flex flex-col h-full w-full" : "group flex flex-col h-full bg-surface border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:border-primary/50 transition-all duration-300"}>
       <Link href={`/recipes/${recipe._id}`} className="relative aspect-[4/3] w-full overflow-hidden block bg-background">
         {recipe.imageUrl ? (
           <Image
