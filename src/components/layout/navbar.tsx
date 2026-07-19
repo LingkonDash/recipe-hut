@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useState, useEffect, useRef } from "react";
 import { UserAvatar } from "@/components/ui/user-avatar";
+import { ChefHat } from "lucide-react";
 
 export function Navbar() {
   const { data: session, isPending } = useSession();
@@ -58,7 +59,8 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-6 md:gap-10">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <ChefHat className="h-6 w-6 text-primary transition-transform group-hover:rotate-12" />
             <span className="inline-block font-bold text-xl text-primary">
               Recipe Hut
             </span>
