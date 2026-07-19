@@ -80,8 +80,8 @@ export function ContactForm() {
 
   const inputClasses = (hasError: boolean) =>
     `w-full px-4 py-3 rounded-xl border ${
-      hasError ? 'border-red-400 focus:ring-red-400' : 'border-zinc-200 dark:border-zinc-700 focus:ring-[var(--primary)]'
-    } bg-zinc-50 dark:bg-zinc-800 text-[var(--foreground)] placeholder-zinc-400 focus:outline-none focus:ring-2 focus:border-transparent transition-all`;
+      hasError ? 'border-red-400 focus:ring-red-400' : 'border-border focus:ring-primary'
+    } bg-surface text-foreground placeholder:text-foreground-muted focus:outline-none focus:ring-2 focus:border-transparent transition-all`;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -101,7 +101,7 @@ export function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-[var(--foreground)] mb-2">Name</label>
+          <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">Name</label>
           <input
             type="text"
             id="name"
@@ -115,7 +115,7 @@ export function ContactForm() {
           {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-[var(--foreground)] mb-2">Email</label>
+          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">Email</label>
           <input
             type="email"
             id="email"
@@ -131,7 +131,7 @@ export function ContactForm() {
       </div>
       
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-[var(--foreground)] mb-2">Subject</label>
+        <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">Subject</label>
         <input
           type="text"
           id="subject"
@@ -146,7 +146,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-[var(--foreground)] mb-2">Message</label>
+        <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">Message</label>
         <textarea
           id="message"
           name="message"
@@ -163,7 +163,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full sm:w-auto px-8 py-3.5 bg-[var(--primary)] hover:bg-[var(--primary)]/90 text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+        className="w-full sm:w-auto px-8 py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
       >
         {isSubmitting ? (
           <>

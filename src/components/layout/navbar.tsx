@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useState, useEffect, useRef } from "react";
+import { UserAvatar } from "@/components/ui/user-avatar";
 
 export function Navbar() {
   const { data: session, isPending } = useSession();
+  const pathname = usePathname();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,6 +20,8 @@ export function Navbar() {
     await signOut();
     window.location.href = "/";
   };
+
+  const isActive = (path: string) => pathname === path;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -36,10 +41,7 @@ export function Navbar() {
     };
   }, [isDropdownOpen]);
 
-  const userInitial =
-    session?.user?.name?.charAt(0).toUpperCase() ||
-    session?.user?.email?.charAt(0).toUpperCase() ||
-    "U";
+  // userInitial is derived inside UserAvatar — no need to compute it here
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -53,25 +55,33 @@ export function Navbar() {
           <nav className="hidden md:flex gap-6">
             <Link
               href="/"
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               Home
             </Link>
             <Link
               href="/explore"
-              className="text-sm font-medium transition-colors hover:text-primary text-foreground-muted"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/explore") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               Explore
             </Link>
             <Link
               href="/about"
-              className="text-sm font-medium transition-colors hover:text-primary text-foreground-muted"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/about") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="text-sm font-medium transition-colors hover:text-primary text-foreground-muted"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/contact") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               Contact
             </Link>
@@ -105,9 +115,12 @@ export function Navbar() {
                   aria-expanded={isDropdownOpen}
                   id="user-menu-button"
                 >
-                  <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-background font-bold text-sm select-none">
-                    {userInitial}
-                  </div>
+                  <UserAvatar
+                    name={session.user?.name}
+                    email={session.user?.email}
+                    image={session.user?.image}
+                    size={36}
+                  />
                   {/* Chevron */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -145,25 +158,37 @@ export function Navbar() {
                       <Link
                         href="/items/add"
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background transition-colors"
+                        className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                          isActive("/items/add")
+                            ? "text-primary bg-background font-semibold"
+                            : "text-foreground hover:bg-background"
+                        }`}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground-muted"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isActive("/items/add") ? "text-primary" : "text-foreground-muted"}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                         Add Recipe
                       </Link>
                       <Link
                         href="/items/manage"
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background transition-colors"
+                        className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                          isActive("/items/manage")
+                            ? "text-primary bg-background font-semibold"
+                            : "text-foreground hover:bg-background"
+                        }`}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground-muted"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isActive("/items/manage") ? "text-primary" : "text-foreground-muted"}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
                         Manage Recipes
                       </Link>
                       <Link
                         href="/profile"
                         onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-background transition-colors"
+                        className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                          isActive("/profile")
+                            ? "text-primary bg-background font-semibold"
+                            : "text-foreground hover:bg-background"
+                        }`}
                       >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground-muted"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isActive("/profile") ? "text-primary" : "text-foreground-muted"}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                         Profile
                       </Link>
                     </div>
@@ -227,28 +252,36 @@ export function Navbar() {
             <Link
               href="/"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               Home
             </Link>
             <Link
               href="/explore"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/explore") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               Explore
             </Link>
             <Link
               href="/about"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/about") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               About
             </Link>
             <Link
               href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className={`text-sm font-medium transition-colors hover:text-primary ${
+                isActive("/contact") ? "text-primary font-semibold" : "text-foreground-muted"
+              }`}
             >
               Contact
             </Link>
@@ -276,9 +309,12 @@ export function Navbar() {
               <div className="flex flex-col gap-1">
                 {/* User info */}
                 <div className="flex items-center gap-3 px-1 py-2 mb-2">
-                  <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-background font-bold text-sm flex-shrink-0 select-none">
-                    {userInitial}
-                  </div>
+                  <UserAvatar
+                    name={session.user?.name}
+                    email={session.user?.email}
+                    image={session.user?.image}
+                    size={36}
+                  />
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-foreground truncate">
                       {session.user?.name || "User"}
@@ -292,25 +328,37 @@ export function Navbar() {
                 <Link
                   href="/items/add"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-2 py-2.5 text-sm font-medium text-foreground hover:text-primary transition-colors rounded-md hover:bg-surface"
+                  className={`flex items-center gap-3 px-2 py-2.5 text-sm font-medium transition-colors rounded-md ${
+                    isActive("/items/add")
+                      ? "text-primary bg-surface font-semibold"
+                      : "text-foreground hover:bg-surface"
+                  }`}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground-muted"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isActive("/items/add") ? "text-primary" : "text-foreground-muted"}><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
                   Add Recipe
                 </Link>
                 <Link
                   href="/items/manage"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-2 py-2.5 text-sm font-medium text-foreground hover:text-primary transition-colors rounded-md hover:bg-surface"
+                  className={`flex items-center gap-3 px-2 py-2.5 text-sm font-medium transition-colors rounded-md ${
+                    isActive("/items/manage")
+                      ? "text-primary bg-surface font-semibold"
+                      : "text-foreground hover:bg-surface"
+                  }`}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground-muted"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isActive("/items/manage") ? "text-primary" : "text-foreground-muted"}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
                   Manage Recipes
                 </Link>
                 <Link
                   href="/profile"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-2 py-2.5 text-sm font-medium text-foreground hover:text-primary transition-colors rounded-md hover:bg-surface"
+                  className={`flex items-center gap-3 px-2 py-2.5 text-sm font-medium transition-colors rounded-md ${
+                    isActive("/profile")
+                      ? "text-primary bg-surface font-semibold"
+                      : "text-foreground hover:bg-surface"
+                  }`}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground-muted"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={isActive("/profile") ? "text-primary" : "text-foreground-muted"}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                   Profile
                 </Link>
 

@@ -120,9 +120,9 @@ function FieldLabel({
   htmlFor, children, hint,
 }: { htmlFor: string; children: React.ReactNode; hint?: string }) {
   return (
-    <label htmlFor={htmlFor} className="block text-sm font-semibold text-[var(--foreground)] mb-1.5">
+    <label htmlFor={htmlFor} className="block text-sm font-semibold text-foreground mb-1.5">
       {children}
-      {hint && <span className="ml-1.5 font-normal text-zinc-400 text-xs">{hint}</span>}
+      {hint && <span className="ml-1.5 font-normal text-foreground-muted text-xs">{hint}</span>}
     </label>
   );
 }
@@ -140,12 +140,12 @@ function FieldError({ msg }: { msg?: string }) {
 }
 
 const inputCls = (hasError: boolean) =>
-  `w-full px-4 py-2.5 rounded-xl border text-sm text-[var(--foreground)] bg-zinc-50 dark:bg-zinc-800/60 
-   focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/40 focus:border-[var(--primary)] transition-all
-   placeholder:text-zinc-400 ${
+  `w-full px-4 py-2.5 rounded-xl border text-sm text-foreground bg-background
+   focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all
+   placeholder:text-foreground-muted ${
     hasError
-      ? 'border-red-400 dark:border-red-500'
-      : 'border-zinc-200 dark:border-zinc-700'
+      ? 'border-red-400'
+      : 'border-border'
   }`;
 
 /* ──────────────────────── Main Component ───────────────────────── */
@@ -241,10 +241,10 @@ export function AddRecipeForm() {
   };
 
   const sectionCls =
-    'bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 shadow-sm p-6 sm:p-8 space-y-5';
+    'bg-surface rounded-2xl border border-border shadow-sm p-6 sm:p-8 space-y-5';
 
   const sectionHeading = (accent: string, label: string) => (
-    <h2 className="text-lg font-bold text-[var(--foreground)] flex items-center gap-2.5 pb-1 border-b border-zinc-100 dark:border-zinc-800">
+    <h2 className="text-lg font-bold text-foreground flex items-center gap-2.5 pb-1 border-b border-border">
       <span className={`w-1 h-5 rounded-full ${accent} flex-shrink-0`} />
       {label}
     </h2>
@@ -423,7 +423,7 @@ export function AddRecipeForm() {
 
       {/* ── 4. Nutrition ── */}
       <div className={sectionCls}>
-        {sectionHeading('bg-blue-400', 'Nutrition (per serving)')}
+        {sectionHeading('bg-accent', 'Nutrition (per serving)')}
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
           <NumField
@@ -626,7 +626,7 @@ function NumField({
 }) {
   return (
     <div data-error={!!error}>
-      <label htmlFor={id} className="block text-sm font-semibold text-[var(--foreground)] mb-1.5">
+      <label htmlFor={id} className="block text-sm font-semibold text-foreground mb-1.5">
         {label} <span className="text-red-500">*</span>
       </label>
       <input

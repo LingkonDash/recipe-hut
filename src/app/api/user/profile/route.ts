@@ -4,31 +4,12 @@ import { headers } from "next/headers";
 
 /**
  * GET /api/user/profile
- * Returns the current user's profile data + whether they have a credential (password) account.
+ * Returns the current user's profile data.
  */
 export async function GET() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  // Check if the user has a credential (email/password) account
-  let hasPassword = false;
-  try {
-    const accountsResponse = await auth.api.listUserAccounts({
-      headers: await headers(),
-    });
-
-    // listUserAccounts returns an array of account objects
-    const accounts = Array.isArray(accountsResponse)
-      ? accountsResponse
-      : [];
-    hasPassword = accounts.some(
-      (acc: { providerId?: string }) => acc.providerId === "credential"
-    );
-  } catch {
-    // If listing accounts fails, default to false
-    hasPassword = false;
   }
 
   return NextResponse.json({
@@ -38,14 +19,14 @@ export async function GET() {
       email: session.user.email,
       image: session.user.image || null,
     },
-    hasPassword,
   });
 }
 
 /**
  * PATCH /api/user/profile
- * Updates user profile (name, image) and optionally changes password.
- * Delegates to Better Auth's server-side APIs.
+ * Updates user profile: name and/or image URL.
+ * Delegates to Better Auth's server-side updateUser API.
+ * Password changing has been removed — manage passwords via your auth provider.
  */
 export async function PATCH(request: NextRequest) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -54,14 +35,10 @@ export async function PATCH(request: NextRequest) {
   }
 
   const body = await request.json();
-  const { name, image, currentPassword, newPassword } = body as {
+  const { name, image } = body as {
     name?: string;
     image?: string | null;
-    currentPassword?: string;
-    newPassword?: string;
   };
-
-  const results: { profileUpdated?: boolean; passwordChanged?: boolean } = {};
 
   // ── Update name / image via Better Auth ──────────────────────────
   if (name !== undefined || image !== undefined) {
@@ -74,7 +51,6 @@ export async function PATCH(request: NextRequest) {
         headers: await headers(),
         body: updateBody,
       });
-      results.profileUpdated = true;
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Failed to update profile";
@@ -82,27 +58,5 @@ export async function PATCH(request: NextRequest) {
     }
   }
 
-  // ── Change password via Better Auth ──────────────────────────────
-  if (currentPassword && newPassword) {
-    try {
-      await auth.api.changePassword({
-        headers: await headers(),
-        body: {
-          currentPassword,
-          newPassword,
-          revokeOtherSessions: false,
-        },
-      });
-      results.passwordChanged = true;
-    } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Failed to change password";
-      return NextResponse.json(
-        { error: message, profileUpdated: results.profileUpdated ?? false },
-        { status: 400 }
-      );
-    }
-  }
-
-  return NextResponse.json({ success: true, ...results });
+  return NextResponse.json({ success: true, profileUpdated: true });
 }

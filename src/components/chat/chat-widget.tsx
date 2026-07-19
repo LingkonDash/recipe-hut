@@ -193,24 +193,24 @@ export function ChatWidget() {
       />
 
       <div
-        className={`fixed inset-0 sm:inset-auto sm:top-1/2 sm:left-1/2 w-full h-[100dvh] sm:w-[70vw] sm:h-[70vh] sm:max-w-4xl bg-background sm:rounded-2xl sm:shadow-2xl flex flex-col z-50 transition-all duration-300 transform sm:-translate-x-1/2 sm:-translate-y-1/2 border-0 sm:border border-gray-200 dark:border-neutral-800 ${isOpen ? 'translate-y-0 sm:scale-100 opacity-100' : 'translate-y-full sm:translate-y-0 sm:scale-95 opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 sm:inset-auto sm:top-1/2 sm:left-1/2 w-full h-[100dvh] sm:w-[70vw] sm:h-[70vh] sm:max-w-4xl bg-background sm:rounded-2xl sm:shadow-2xl flex flex-col z-50 transition-all duration-300 transform sm:-translate-x-1/2 sm:-translate-y-1/2 border-0 sm:border border-border ${isOpen ? 'translate-y-0 sm:scale-100 opacity-100' : 'translate-y-full sm:translate-y-0 sm:scale-95 opacity-0 pointer-events-none'}`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-neutral-800 bg-primary text-white sm:rounded-t-2xl shrink-0">
+        <div className="flex items-center justify-between p-4 border-b border-border bg-surface sm:rounded-t-2xl shrink-0">
           <div className="flex items-center gap-2">
-            <ChefHat className="w-5 h-5" />
-            <h3 className="font-semibold text-lg">Recipe Assistant</h3>
+            <ChefHat className="w-5 h-5 text-primary" />
+            <h3 className="font-semibold text-lg text-foreground">Recipe Assistant</h3>
           </div>
           <div className="flex items-center gap-1">
             <button
               onClick={clearHistory}
-              className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+              className="p-1.5 text-foreground-muted hover:text-primary hover:bg-background rounded-full transition-colors"
               title="Clear conversation"
             >
               <Trash2 className="w-4 h-4" />
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1.5 hover:bg-white/20 rounded-full transition-colors"
+              className="p-1.5 text-foreground-muted hover:text-primary hover:bg-background rounded-full transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -222,16 +222,16 @@ export function ChatWidget() {
             <Fragment key={idx}>
               {idx === restoredCount && restoredCount > 0 && (
                 <div className="flex items-center gap-4 my-6 w-full opacity-60">
-                  <div className="h-px bg-gray-400 dark:bg-neutral-600 flex-1"></div>
-                  <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Previous messages</span>
-                  <div className="h-px bg-gray-400 dark:bg-neutral-600 flex-1"></div>
+                  <div className="h-px bg-border flex-1"></div>
+                  <span className="text-[10px] text-foreground-muted font-bold uppercase tracking-widest">Previous messages</span>
+                  <div className="h-px bg-border flex-1"></div>
                 </div>
               )}
               <div className={`flex flex-col w-full ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-2 ${msg.role === 'user'
                   ? 'bg-primary text-white rounded-tr-sm'
-                  : 'bg-white dark:bg-neutral-900 text-foreground border border-gray-200 dark:border-neutral-800 rounded-tl-sm'
+                  : 'bg-surface text-foreground border border-border rounded-tl-sm'
                   }`}
               >
                 <div className="whitespace-pre-wrap leading-relaxed text-sm">
@@ -242,13 +242,13 @@ export function ChatWidget() {
               {msg.recipes && msg.recipes.length > 0 && (
                 <div className="mt-2 w-full space-y-2 max-w-[90%]">
                   {msg.recipes.map((recipe) => (
-                    <div key={recipe.id} className="p-3 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-xl flex flex-col gap-1 shadow-sm">
-                      <h4 className="font-semibold text-sm line-clamp-1">{recipe.title}</h4>
-                      <p className="text-xs text-gray-500 line-clamp-2">{recipe.shortDescription}</p>
+                    <div key={recipe.id} className="p-3 bg-surface border border-border rounded-xl flex flex-col gap-1 shadow-sm">
+                      <h4 className="font-semibold text-sm text-foreground line-clamp-1">{recipe.title}</h4>
+                      <p className="text-xs text-foreground-muted line-clamp-2">{recipe.shortDescription}</p>
                       <Link
                         href={`/recipes/${recipe.id}`}
                         onClick={() => setIsOpen(false)}
-                        className="text-xs font-medium text-primary mt-1 hover:underline w-fit"
+                        className="text-[11px] font-semibold bg-primary text-white px-3 py-1 rounded-full mt-2 hover:bg-primary/90 transition-all duration-200 w-fit inline-flex items-center gap-1 shadow-sm"
                       >
                         View Recipe &rarr;
                       </Link>
@@ -263,7 +263,7 @@ export function ChatWidget() {
                     <button
                       key={fIdx}
                       onClick={() => sendMessage(followup)}
-                      className="text-xs px-3 py-1.5 bg-secondary text-white rounded-full hover:bg-primary hover:text-white transition-colors border border-gray-200 dark:border-neutral-800 text-left"
+                      className="text-xs px-3 py-1.5 bg-surface text-foreground-muted rounded-full hover:bg-primary hover:text-white transition-colors border border-border hover:border-primary text-left shadow-sm"
                     >
                       {followup}
                     </button>
@@ -276,17 +276,17 @@ export function ChatWidget() {
 
           {isTyping && (
             <div className="flex items-start">
-              <div className="bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1 items-center h-10">
-                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-1.5 h-1.5 bg-gray-500 rounded-full animate-bounce"></span>
+              <div className="bg-surface border border-border rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1 items-center h-10">
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce"></span>
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] border-t border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 sm:rounded-b-2xl shrink-0">
+        <div className="px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] border-t border-border bg-background sm:rounded-b-2xl shrink-0">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -300,12 +300,12 @@ export function ChatWidget() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask for a recipe..."
               disabled={isTyping || messages[messages.length - 1]?.isStreaming}
-              className="flex-1 px-4 py-2 bg-background border border-gray-200 dark:border-neutral-800 rounded-full focus:outline-none focus:ring-2 focus:ring-primary text-sm disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-surface border border-border text-foreground placeholder:text-foreground-muted rounded-full focus:outline-none focus:ring-2 focus:ring-primary text-sm disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={!input.trim() || isTyping || messages[messages.length - 1]?.isStreaming}
-              className="p-2 rounded-full bg-primary text-white disabled:opacity-50 hover:bg-primary/90 transition-colors"
+              className="p-2 rounded-full bg-primary text-white disabled:opacity-40 hover:bg-primary/90 transition-colors"
             >
               <Send className="w-5 h-5" />
             </button>
@@ -316,8 +316,9 @@ export function ChatWidget() {
         @media (min-width: 640px) {
           .custom-scrollbar::-webkit-scrollbar { width: 6px; }
           .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-          .custom-scrollbar::-webkit-scrollbar-thumb { background-color: var(--primary, #C1502E); border-radius: 9999px; }
-          .custom-scrollbar { scrollbar-width: thin; scrollbar-color: var(--primary, #C1502E) transparent; }
+          .custom-scrollbar::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 9999px; }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover { background-color: var(--foreground-muted); }
+          .custom-scrollbar { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
         }
       `}} />
     </>

@@ -160,29 +160,29 @@ function ExploreContent() {
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
   return (
-    <div ref={containerRef} className="container py-12 md:py-16 mx-auto px-4 min-h-[80vh]">
+    <div ref={containerRef} className="container py-12 md:py-16 mx-auto px-4 min-h-[80vh] bg-background">
       <div className="mb-10 text-center">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
           Explore Recipes
         </h1>
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+        <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
           Discover your next favorite meal. Filter by category, cuisine, and more to find the perfect recipe.
         </p>
       </div>
 
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6 shadow-sm mb-12">
+      <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm mb-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="md:col-span-1 gsap-explore-control">
             <label htmlFor="search" className="block text-sm font-medium text-foreground mb-1">Search</label>
             <div className="relative">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground-muted w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               <input
                 id="search"
                 type="text"
                 value={search}
                 onChange={handleSearchChange}
                 placeholder="Search recipes..."
-                className="w-full pl-9 pr-4 py-2 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-foreground"
+                className="w-full pl-9 pr-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-foreground placeholder:text-foreground-muted"
               />
             </div>
           </div>
@@ -194,14 +194,14 @@ function ExploreContent() {
                 id="category"
                 value={category}
                 onChange={handleCategoryChange}
-                className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none text-foreground"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none text-foreground"
               >
                 <option value="">All Categories</option>
                 {categories.map(cat => (
                   <option key={cat} value={cat}>{cat}</option>
                 ))}
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-500">
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-foreground-muted">
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
             </div>
@@ -214,14 +214,14 @@ function ExploreContent() {
                 id="cuisine"
                 value={cuisine}
                 onChange={handleCuisineChange}
-                className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none text-foreground"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none text-foreground"
               >
                 <option value="">All Cuisines</option>
                 {cuisines.map(cui => (
                   <option key={cui} value={cui}>{cui}</option>
                 ))}
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-500">
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-foreground-muted">
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
             </div>
@@ -234,13 +234,13 @@ function ExploreContent() {
                 id="sort"
                 value={sort}
                 onChange={handleSortChange}
-                className="w-full px-3 py-2 bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none text-foreground"
+                className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none text-foreground"
               >
                 <option value="newest">Newest</option>
                 <option value="rating">Highest Rated</option>
                 <option value="calories">Lowest Calories</option>
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-500">
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-foreground-muted">
                 <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
               </div>
             </div>
@@ -264,17 +264,17 @@ function ExploreContent() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl">
-            <svg className="mx-auto h-12 w-12 text-zinc-400 mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="m9 9 4 4"/><path d="m13 9-4 4"/></svg>
+          <div className="text-center py-20 bg-surface border border-border rounded-2xl">
+            <svg className="mx-auto h-12 w-12 text-foreground-muted mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="m9 9 4 4"/><path d="m13 9-4 4"/></svg>
             <h3 className="text-lg font-medium text-foreground mb-1">No recipes found</h3>
-            <p className="text-zinc-500 dark:text-zinc-400">
+            <p className="text-foreground-muted">
               Try adjusting your search or filters to find what you're looking for.
             </p>
             <button
               onClick={() => {
                 updateUrlParams({ search: "", category: "", cuisine: "", sort: "newest", page: "1" });
               }}
-              className="mt-6 px-4 py-2 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-foreground font-medium rounded-lg transition-colors text-sm"
+              className="mt-6 px-4 py-2 bg-primary hover:bg-primary/95 text-white font-medium rounded-lg transition-colors duration-300 text-sm"
             >
               Clear all filters
             </button>
@@ -287,7 +287,7 @@ function ExploreContent() {
           <button
             onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-50 dark:hover:bg-zinc-800 text-foreground transition-colors"
+            className="px-4 py-2 bg-surface border border-border rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:border-primary/50 hover:bg-background text-foreground transition-all duration-300"
           >
             Previous
           </button>
@@ -299,13 +299,13 @@ function ExploreContent() {
               
               // Simple pagination logic for many pages
               if (
-                totalPages > 7 && 
-                page !== 1 && 
-                page !== totalPages && 
-                Math.abs(page - currentPage) > 1
+                 totalPages > 7 && 
+                 page !== 1 && 
+                 page !== totalPages && 
+                 Math.abs(page - currentPage) > 1
               ) {
                 if (page === 2 || page === totalPages - 1) {
-                  return <span key={page} className="px-1 text-zinc-500">...</span>;
+                  return <span key={page} className="px-1 text-foreground-muted">...</span>;
                 }
                 return null;
               }
@@ -314,10 +314,10 @@ function ExploreContent() {
                 <button
                   key={page}
                   onClick={() => handlePageChange(page)}
-                  className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors flex-shrink-0 ${
+                  className={`w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-300 flex-shrink-0 ${
                     isCurrent 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'hover:bg-zinc-100 dark:hover:bg-zinc-800 text-foreground'
+                      ? 'bg-primary text-white font-bold border border-transparent shadow-sm' 
+                      : 'hover:bg-surface border border-transparent hover:border-border text-foreground'
                   }`}
                 >
                   {page}
@@ -329,7 +329,7 @@ function ExploreContent() {
           <button
             onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-50 dark:hover:bg-zinc-800 text-foreground transition-colors"
+            className="px-4 py-2 bg-surface border border-border rounded-lg text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:border-primary/50 hover:bg-background text-foreground transition-all duration-300"
           >
             Next
           </button>
@@ -344,14 +344,14 @@ export default function ExplorePage() {
     <Suspense fallback={
       <div className="container py-12 md:py-16 mx-auto px-4">
         <div className="animate-pulse space-y-8">
-          <div className="h-12 w-64 bg-zinc-200 dark:bg-zinc-800 rounded mx-auto mb-4"></div>
-          <div className="h-4 w-96 bg-zinc-200 dark:bg-zinc-800 rounded mx-auto"></div>
+          <div className="h-12 w-64 bg-surface border border-border rounded mx-auto mb-4"></div>
+          <div className="h-4 w-96 bg-surface rounded mx-auto"></div>
           
-          <div className="h-24 w-full bg-zinc-200 dark:bg-zinc-800 rounded-2xl mt-10"></div>
+          <div className="h-24 w-full bg-surface border border-border rounded-2xl mt-10"></div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="h-80 bg-zinc-200 dark:bg-zinc-800 rounded-xl"></div>
+                <div key={i} className="h-80 bg-surface border border-border rounded-xl"></div>
              ))}
           </div>
         </div>

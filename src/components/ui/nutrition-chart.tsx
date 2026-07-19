@@ -13,7 +13,7 @@ export function NutritionChart({ calories, protein, carbs, fat }: NutritionChart
   const data = [
     { name: "Protein", value: protein, fill: "var(--secondary)" },
     { name: "Carbs", value: carbs, fill: "var(--accent)" },
-    { name: "Fat", value: fat, fill: "#3b82f6" }, // Tailwind blue-500
+    { name: "Fat", value: fat, fill: "var(--primary)" },
   ];
 
   return (
@@ -40,7 +40,7 @@ export function NutritionChart({ calories, protein, carbs, fat }: NutritionChart
               formatter={(value: any) => [`${value}g`]}
               contentStyle={{ 
                 borderRadius: "8px", 
-                border: "1px solid var(--color-gray-200)", 
+                border: "1px solid var(--border)", 
                 boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
                 backgroundColor: "var(--background)",
                 color: "var(--foreground)"
@@ -52,7 +52,7 @@ export function NutritionChart({ calories, protein, carbs, fat }: NutritionChart
         {/* Center Calories Text */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <span className="text-4xl font-black text-[var(--primary)] leading-none">{calories}</span>
-          <span className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mt-1">Calories</span>
+          <span className="text-xs font-semibold text-foreground-muted uppercase tracking-widest mt-1">Calories</span>
         </div>
       </div>
       
@@ -62,7 +62,7 @@ export function NutritionChart({ calories, protein, carbs, fat }: NutritionChart
           <div key={item.name} className="flex items-center gap-2.5">
             <div className="w-3.5 h-3.5 rounded-full shadow-sm" style={{ backgroundColor: item.fill }} />
             <div className="flex flex-col">
-              <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider">{item.name}</span>
+              <span className="text-[10px] font-semibold text-foreground-muted uppercase tracking-wider">{item.name}</span>
               <span className="text-sm font-bold text-[var(--foreground)] leading-none mt-0.5">{item.value}g</span>
             </div>
           </div>
